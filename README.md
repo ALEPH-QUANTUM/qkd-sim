@@ -1,14 +1,26 @@
 # qkd-sim
 
-qkd-sim is a lightweight, research-stage simulator for  
-Quantum Key Distribution (QKD) protocols.
+**qkd-sim** is a research-stage simulator for **Quantum Key Distribution (QKD)** protocols.
+It is designed for **protocol behavior analysis** (noise, attacks, post-processing) and for
+producing **reliability metrics** that can feed higher-level decision logic.
 
-It is developed under ℵ - QUANTUM, a quantum software initiative focused on
-simulation, validation, and reliability of quantum systems.
+Developed under **ℵ – QUANTUM** (software-first quantum simulation and reliability tooling).
 
 This project is software-only and does **not** simulate quantum hardware,
 qubits, or physical quantum devices.
 
+
+## What this project is (and is not)
+
+### It is
+- a clean reference implementation of QKD protocol logic
+- a simulator of abstract channels, noise, and eavesdropping models
+- a producer of observable metrics (e.g., error rate) for analysis and validation
+
+### It is not
+- a quantum computer simulator
+- a qubit/optics hardware model
+- a flight system
 ---
 
 ## Purpose
@@ -75,6 +87,20 @@ analysis, and future extensions.
 
 ---
 
+## Observed metrics (current)
+
+The simulator outputs a simple report rather than only returning a key:
+
+- `raw_bits` — total bits sent
+- `matched_bases` — how many bases matched (sifted set size)
+- `final_key_length` — resulting key size after sifting
+- `error_rate` — observed bit error rate (QBER)
+- `secure` — boolean decision based on a threshold rule
+
+These values are intended for **analysis and decision logic**, not performance claims.
+
+---
+
 ## Relationship to Autonomy & Systems Research
 
 Simulation outputs from `qkd-sim` can be used to generate
@@ -100,8 +126,18 @@ The two initiatives are related but distinct in scope.
 
 ## Status
 
-Researchstage.
+Research-stage.
 
 Interfaces, structure, and supported protocols may evolve.
 The project prioritizes clarity and correctness over
 performance or completeness.
+
+---
+
+## Quick start
+
+Run the example:
+
+```bash
+python examples/basic_bb84.py
+

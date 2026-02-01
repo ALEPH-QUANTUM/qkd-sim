@@ -1,5 +1,11 @@
 # qkd-sim
 
+ℵ - QUANTUM is a research-stage quantum software initiative.
+
+Focus: simulation, validation, and reliability of quantum systems.
+
+It does not build quantum hardware.
+
 Quantum Key Distribution protocol simulator for research and education.
 
 This project implements software simulations of quantum key distribution
@@ -30,3 +36,4 @@ Provide a clean, readable reference implementation of core QKD concepts.
 
 _qkd-sim is a lightweight simulator for quantum key distribution missions, designed to generate mission-state scenarios and serve as autonomy input. It does NOT simulate quantum hardware - it models abstract channels and mission behavior relevant to ℵ - QUANTUM autonomy logic. 
 ℵ - QUANTUM develops focused quantum software and simulation tools. Some of this research may later inform space systems via ℵ - SYSTEMS._
+

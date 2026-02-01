@@ -28,3 +28,4 @@ qkd/
 
 Provide a clean, readable reference implementation of core QKD concepts.
 
+_qkd-sim is a lightweight simulator for quantum key distribution missions, designed to generate mission-state scenarios and serve as autonomy input. It does NOT simulate quantum hardware - it models abstract channels and mission behavior relevant to ℵ - QUANTUM autonomy logic._

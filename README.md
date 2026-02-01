@@ -1,41 +1,107 @@
 # qkd-sim
 
-ℵ - QUANTUM is a research-stage quantum software initiative.
+qkd-sim is a lightweight, research-stage simulator for  
+Quantum Key Distribution (QKD) protocols.
 
-Focus: simulation, validation, and reliability of quantum systems.
+It is developed under ℵ - QUANTUM, a quantum software initiative focused on
+simulation, validation, and reliability of quantum systems.
 
-It does not build quantum hardware.
+This project is software-only and does **not** simulate quantum hardware,
+qubits, or physical quantum devices.
 
-Quantum Key Distribution protocol simulator for research and education.
+---
 
-This project implements software simulations of quantum key distribution
-protocols with configurable noise, eavesdropping attacks, and post-processing.
+## Purpose
 
-Currently supported:
-- BB84 (in progress)
+Quantum Key Distribution protocols are conceptually simple but
+operationally fragile.
 
-Planned:
+`qkd-sim` provides a **clean, readable reference implementation** of core QKD
+concepts suitable for:
+
+- research exploration
+- education
+- protocol comparison
+- higher-level system modeling
+
+The simulator models abstract quantum channels and protocol behavior
+rather than device-level physics.
+
+---
+
+## Scope
+
+`qkd-sim` focuses on:
+
+- QKD protocol logic
+- abstract channel noise effects
+- eavesdropping strategies
+- classical post-processing stages
+
+It explicitly excludes:
+
+- quantum hardware simulation
+- qubit-level physical modeling
+- device-specific effects
+
+---
+
+## Supported Protocols
+
+**In progress**
+- BB84
+
+**Planned**
 - E91
-- Channel noise models
-- Intercept-resend attack
-- Error correction
-- Privacy amplification
+- configurable channel noise models
+- intercept–resend attack
+- error correction
+- privacy amplification
 
-## Architecture
+---
+
+## Architecture Overview
 
 qkd/
-  protocols/    -> QKD protocols
-  channel.py    -> quantum channel models
-  attacks.py    -> eavesdropper models
-  reconciliation.py -> error correction
-  privacy.py   -> privacy amplification
+--> protocols/ # QKD protocol implementations
+--> channel.py # Abstract quantum channel models
+--> attacks.py # Eavesdropper models
+--> reconciliation.py # Error correction
+--> privacy.py # Privacy amplification
 
-## Goal
 
-Provide a clean, readable reference implementation of core QKD concepts.
+The architecture is intentionally modular to support experimentation,
+analysis, and future extensions.
 
-_qkd-sim is a lightweight simulator for quantum key distribution missions, designed to generate mission-state scenarios and serve as autonomy input. It does NOT simulate quantum hardware - it models abstract channels and mission behavior relevant to ℵ - QUANTUM autonomy logic. 
-ℵ - QUANTUM develops focused quantum software and simulation tools. Some of this research may later inform space systems via ℵ - SYSTEMS._
+---
 
-ℵ - QUANTUM explores quantum computing foundations;
-ℵ - SYSTEMS applies selected results to space missions.
+## Relationship to Autonomy & Systems Research
+
+Simulation outputs from `qkd-sim` can be used to generate
+**protocol-level behavior and reliability indicators**.
+
+These outputs may serve as inputs to higher-level decision logic
+(e.g. mission or system autonomy research).
+
+This connection is conceptual, not operational or flight-related.
+
+---
+
+## Relationship Between ℵ - QUANTUM and ℵ - SYSTEMS
+
+- **ℵ - QUANTUM** explores quantum computing and communication foundations
+  through focused software and simulation tools.
+- **ℵ - SYSTEMS** applies selected results to space mission
+  and autonomy contexts.
+
+The two initiatives are related but distinct in scope.
+
+---
+
+## Status
+
+Researchstage.
+
+Interfaces, structure, and supported protocols may evolve.
+The project prioritizes clarity and correctness over
+performance or completeness.

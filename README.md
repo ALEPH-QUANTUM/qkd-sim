@@ -1,3 +1,6 @@
+**Current release:** v0.1 (research-stage, API frozen)
+
+
 # qkd-sim
 
 **qkd-sim** is a research-stage simulator for **Quantum Key Distribution (QKD)** protocols.

@@ -82,3 +82,14 @@ This makes the simulator suitable for:
 - protocol comparison
 - system-level reasoning
 - autonomy research inputs
+
+## Threat Classification
+
+`qkd-sim` maps observed error rate into a coarse threat label:
+
+- `benign_noise` — consistent with low channel noise
+- `suspected_attack` — consistent with strong adversarial disturbance
+- `unknown` — ambiguous zone requiring caution
+
+This classification is deterministic and threshold-based by design.
+

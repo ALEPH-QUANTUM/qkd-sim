@@ -1,4 +1,10 @@
-def bb84_protocol(n=100):
+def bb84_protocol(n=1000, attack=None, noise_rate=0.0):
+
+if noise_rate > 0.0:
+    from qkd.channel import noisy_channel
+    transmitted_bits = noisy_channel(transmitted_bits, noise_rate)
+
+
     alice_bits = random_bits(n)
     alice_bases = random_bases(n)
     bob_bases = random_bases(n)

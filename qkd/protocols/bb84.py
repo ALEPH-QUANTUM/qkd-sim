@@ -1,67 +1,76 @@
+import random
+
+from qkd.attacks import intercept_resend
+from qkd.channel import noisy_channel
+
 DEFAULT_THRESHOLDS = {
     "benign_noise_max": 0.03,
     "attack_min": 0.06,
 }
 
-def bb84_protocol(n=1000, attack=None, noise_rate=0.0):
 
-if noise_rate > 0.0:
-    from qkd.channel import noisy_channel
-    transmitted_bits = noisy_channel(transmitted_bits, noise_rate)
+def bb84_protocol(n=1000, attack=None, noise_rate=0.0, thresholds=None):
+    if thresholds is None:
+        thresholds = DEFAULT_THRESHOLDS
 
+    benign_noise_max = thresholds["benign_noise_max"]
+    attack_min = thresholds["attack_min"]
 
-    alice_bits = random_bits(n)
-    alice_bases = random_bases(n)
-    bob_bases = random_bases(n)
+    # Alice prepares bits and bases
+    bits = [random.choice([0, 1]) for _ in range(n)]
+    bases = [random.choice([0, 1]) for _ in range(n)]
 
-    bob_results = [
-        measure(alice_bits[i], alice_bases[i], bob_bases[i])
-        for i in range(n)
-    ]
+    # Transmission (optional attack)
+    if attack == "intercept_resend":
+        transmitted_bits, transmitted_bases = intercept_resend(bits, bases)
+    else:
+        transmitted_bits, transmitted_bases = bits, bases
 
-    sifted_key = [
-        bob_results[i]
-        for i in range(n)
-        if alice_bases[i] == bob_bases[i]
-    ]
+    # Channel noise
+    if noise_rate > 0.0:
+        transmitted_bits = noisy_channel(transmitted_bits, noise_rate)
 
-    alice_sifted_key = [
-        alice_bits[i]
-        for i in range(n)
-        if alice_bases[i] == bob_bases[i]
-    ]
+    # Bob chooses bases
+    bob_bases = [random.choice([0, 1]) for _ in range(n)]
 
+    # Sifting
+    sifted_alice = []
+    sifted_bob = []
+
+    for i in range(n):
+        if bases[i] == bob_bases[i]:
+            sifted_alice.append(bits[i])
+            sifted_bob.append(transmitted_bits[i])
+
+    matched_bases = len(sifted_alice)
+
+    # Error calculation
     errors = sum(
-        1 for a, b in zip(alice_sifted_key, sifted_key) if a != b
+        1 for a, b in zip(sifted_alice, sifted_bob) if a != b
     )
 
-    key_length = len(sifted_key)
-    error_rate = errors / key_length if key_length > 0 else 0
-    secure = error_rate < 0.11
+    error_rate = errors / matched_bases if matched_bases > 0 else 0.0
 
-# Threat classification (simple, explicit, tunable)
-# I can adjust these later, but keep them visible.
-BENIGN_NOISE_MAX = 0.03
-ATTACK_MIN = 0.06
+    # Security decision
+    secure = error_rate <= benign_noise_max
 
-if result["error_rate"] <= BENIGN_NOISE_MAX:
-    threat_level = "benign_noise"
-    threat_reason = "Error rate consistent with low channel noise"
-elif result["error_rate"] >= ATTACK_MIN:
-    threat_level = "suspected_attack"
-    threat_reason = "Error rate exceeds attack suspicion threshold"
-else:
-    threat_level = "unknown"
-    threat_reason = "Error rate in ambiguous zone"
-
-result["threat_level"] = threat_level
-result["threat_reason"] = threat_reason
-
+    # Threat classification
+    if error_rate <= benign_noise_max:
+        threat_level = "benign_noise"
+        threat_reason = "Error rate consistent with low channel noise"
+    elif error_rate >= attack_min:
+        threat_level = "suspected_attack"
+        threat_reason = "Error rate exceeds attack suspicion threshold"
+    else:
+        threat_level = "unknown"
+        threat_reason = "Error rate in ambiguous zone"
 
     return {
-        "sent_bits": n,
-        "sifted_key_length": key_length,
+        "raw_bits": n,
+        "matched_bases": matched_bases,
+        "final_key_length": matched_bases,
         "error_rate": error_rate,
         "secure": secure,
-        "key": sifted_key
+        "threat_level": threat_level,
+        "threat_reason": threat_reason,
     }

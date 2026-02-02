@@ -112,3 +112,16 @@ Users may override thresholds to:
 
 No thresholds are hidden or hard-coded into the decision process.
 
+## Reproducibility
+
+All stochastic behavior in `qkd-sim` can be made deterministic
+by supplying a random seed.
+
+When a seed is provided:
+- protocol behavior is repeatable
+- results can be audited
+- experiments can be compared fairly
+
+This is required for research and autonomy validation.
+
+

@@ -139,6 +139,13 @@ performance or completeness.
 
 python examples/basic_bb84.py 
 
+## Batch Experiments
+
+To study how QKD behavior changes with channel noise:
+
+python experiments/noise_sweep.py
+
+
 ## Autonomy-grade API
 
 If you only need decision signals (for higher-level logic), use:
@@ -148,13 +155,5 @@ from qkd import qkd_decision
 
 decision = qkd_decision(n=1000, noise_rate=0.01)
 print(decision)
-
-This returns only:
-
-secure
-
-threat_level
-
-error_rate
 
 thresholds_used

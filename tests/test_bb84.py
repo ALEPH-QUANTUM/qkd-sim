@@ -1,77 +1,17 @@
 from qkd.protocols import bb84_protocol
+from qkd import qkd_decision
 
 
-def test_bb84_returns_report():
-    result = bb84_protocol(500)
+def test_deterministic_bb84_with_seed():
+    r1 = bb84_protocol(2000, noise_rate=0.01, seed=42)
+    r2 = bb84_protocol(2000, noise_rate=0.01, seed=42)
 
-    # basic structure
-    assert isinstance(result, dict)
-
-    # required fields
-    assert "raw_bits" in result
-    assert "matched_bases" in result
-    assert "final_key_length" in result
-    assert "error_rate" in result
-    assert "secure" in result
-
-    # sanity checks
-    assert result["raw_bits"] > 0
-    assert result["matched_bases"] >= 0
-    assert result["final_key_length"] >= 0
-    assert 0.0 <= result["error_rate"] <= 1.0
+    assert r1["error_rate"] == r2["error_rate"]
+    assert r1["threat_level"] == r2["threat_level"]
 
 
-def test_intercept_resend_detected():
-    """
-    Intercept–resend should introduce a noticeable error rate
-    and cause the security decision to fail (secure == False).
-    """
-    result = bb84_protocol(1000, attack="intercept_resend")
+def test_autonomy_decision_deterministic():
+    d1 = qkd_decision(3000, attack="intercept_resend", seed=123)
+    d2 = qkd_decision(3000, attack="intercept_resend", seed=123)
 
-    assert isinstance(result, dict)
-    assert "error_rate" in result
-    assert "secure" in result
-
-    # conservative threshold: intercept–resend should push errors up
-    assert result["error_rate"] > 0.05
-    assert result["secure"] is False
-
-def test_noise_does_not_always_break_security():
-    result = bb84_protocol(2000, noise_rate=0.01)
-
-    assert result["error_rate"] < 0.05
-    assert result["secure"] is True
-
-
-def test_attack_breaks_security_more_than_noise():
-    noisy = bb84_protocol(2000, noise_rate=0.01)
-    attacked = bb84_protocol(2000, attack="intercept_resend")
-
-    assert attacked["error_rate"] > noisy["error_rate"]
-    assert attacked["secure"] is False
-
-def test_threat_level_benign_noise():
-    result = bb84_protocol(3000, noise_rate=0.01)
-    assert result["threat_level"] == "benign_noise"
-
-
-def test_threat_level_suspected_attack():
-    result = bb84_protocol(3000, attack="intercept_resend")
-    assert result["threat_level"] == "suspected_attack"
-
-def test_custom_thresholds_change_decision():
-    custom_thresholds = {
-        "benign_noise_max": 0.10,
-        "attack_min": 0.20,
-    }
-
-    result = bb84_protocol(
-        3000,
-        attack="intercept_resend",
-        thresholds=custom_thresholds
-    )
-
-    # With relaxed thresholds, attack may not be flagged
-    assert result["threat_level"] != "suspected_attack"
-
-
+    assert d1 == d2

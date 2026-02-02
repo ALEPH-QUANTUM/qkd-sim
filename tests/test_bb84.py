@@ -35,3 +35,17 @@ def test_intercept_resend_detected():
     # conservative threshold: intercept–resend should push errors up
     assert result["error_rate"] > 0.05
     assert result["secure"] is False
+
+def test_noise_does_not_always_break_security():
+    result = bb84_protocol(2000, noise_rate=0.01)
+
+    assert result["error_rate"] < 0.05
+    assert result["secure"] is True
+
+
+def test_attack_breaks_security_more_than_noise():
+    noisy = bb84_protocol(2000, noise_rate=0.01)
+    attacked = bb84_protocol(2000, attack="intercept_resend")
+
+    assert attacked["error_rate"] > noisy["error_rate"]
+    assert attacked["secure"] is False

@@ -34,6 +34,25 @@ if noise_rate > 0.0:
     error_rate = errors / key_length if key_length > 0 else 0
     secure = error_rate < 0.11
 
+# Threat classification (simple, explicit, tunable)
+# I can adjust these later, but keep them visible.
+BENIGN_NOISE_MAX = 0.03
+ATTACK_MIN = 0.06
+
+if result["error_rate"] <= BENIGN_NOISE_MAX:
+    threat_level = "benign_noise"
+    threat_reason = "Error rate consistent with low channel noise"
+elif result["error_rate"] >= ATTACK_MIN:
+    threat_level = "suspected_attack"
+    threat_reason = "Error rate exceeds attack suspicion threshold"
+else:
+    threat_level = "unknown"
+    threat_reason = "Error rate in ambiguous zone"
+
+result["threat_level"] = threat_level
+result["threat_reason"] = threat_reason
+
+
     return {
         "sent_bits": n,
         "sifted_key_length": key_length,

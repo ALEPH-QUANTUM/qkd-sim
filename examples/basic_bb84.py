@@ -12,7 +12,7 @@ def print_result(title, result):
 
 
 def main():
-    print("=== ℵ – QUANTUM | qkd-sim | BB84 Demo ===\n")
+    print("=== ℵ - QUANTUM | qkd-sim | BB84 Demo ===\n")
 
     # Baseline run (no attack)
     baseline = bb84_protocol(1000)
@@ -37,3 +37,5 @@ noise_result = bb84_protocol(1000, noise_rate=0.01)
 
 print(f"Error rate (QBER): {noise_result['error_rate']:.4f}")
 print(f"Secure channel:    {noise_result['secure']}")
+print(f"Threat level:        {result['threat_level']}")
+print(f"Threat reason:       {result['threat_reason']}")

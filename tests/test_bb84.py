@@ -49,3 +49,13 @@ def test_attack_breaks_security_more_than_noise():
 
     assert attacked["error_rate"] > noisy["error_rate"]
     assert attacked["secure"] is False
+
+def test_threat_level_benign_noise():
+    result = bb84_protocol(3000, noise_rate=0.01)
+    assert result["threat_level"] == "benign_noise"
+
+
+def test_threat_level_suspected_attack():
+    result = bb84_protocol(3000, attack="intercept_resend")
+    assert result["threat_level"] == "suspected_attack"
+

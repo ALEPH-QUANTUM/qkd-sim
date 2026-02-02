@@ -91,11 +91,11 @@ analysis, and future extensions.
 
 The simulator outputs a simple report rather than only returning a key:
 
-- `raw_bits` — total bits sent
-- `matched_bases` — how many bases matched (sifted set size)
-- `final_key_length` — resulting key size after sifting
-- `error_rate` — observed bit error rate (QBER)
-- `secure` — boolean decision based on a threshold rule
+- `raw_bits` - total bits sent
+- `matched_bases` - how many bases matched (sifted set size)
+- `final_key_length` - resulting key size after sifting
+- `error_rate` - observed bit error rate (QBER)
+- `secure` - boolean decision based on a threshold rule
 
 These values are intended for **analysis and decision logic**, not performance claims.
 
@@ -134,10 +134,27 @@ performance or completeness.
 
 ---
 
-## Quick start
+## Quick:
 
-Run the example:
 
-```bash
-python examples/basic_bb84.py
+python examples/basic_bb84.py 
 
+## Autonomy-grade API
+
+If you only need decision signals (for higher-level logic), use:
+
+```python
+from qkd import qkd_decision
+
+decision = qkd_decision(n=1000, noise_rate=0.01)
+print(decision)
+
+This returns only:
+
+secure
+
+threat_level
+
+error_rate
+
+thresholds_used

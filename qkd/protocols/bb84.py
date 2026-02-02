@@ -1,3 +1,8 @@
+DEFAULT_THRESHOLDS = {
+    "benign_noise_max": 0.03,
+    "attack_min": 0.06,
+}
+
 def bb84_protocol(n=1000, attack=None, noise_rate=0.0):
 
 if noise_rate > 0.0:

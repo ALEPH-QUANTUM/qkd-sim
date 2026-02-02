@@ -93,3 +93,22 @@ This makes the simulator suitable for:
 
 This classification is deterministic and threshold-based by design.
 
+## Configurable Thresholds
+
+Threat classification thresholds in `qkd-sim` are explicit and configurable.
+
+Default values:
+
+- benign_noise_max = 0.03  
+- attack_min = 0.06  
+
+These thresholds define how observed error rates are interpreted.
+
+Users may override thresholds to:
+- explore sensitivity
+- reproduce experiments
+- model different channel assumptions
+- integrate with higher-level decision logic
+
+No thresholds are hidden or hard-coded into the decision process.
+

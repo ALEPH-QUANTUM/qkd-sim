@@ -59,3 +59,19 @@ def test_threat_level_suspected_attack():
     result = bb84_protocol(3000, attack="intercept_resend")
     assert result["threat_level"] == "suspected_attack"
 
+def test_custom_thresholds_change_decision():
+    custom_thresholds = {
+        "benign_noise_max": 0.10,
+        "attack_min": 0.20,
+    }
+
+    result = bb84_protocol(
+        3000,
+        attack="intercept_resend",
+        thresholds=custom_thresholds
+    )
+
+    # With relaxed thresholds, attack may not be flagged
+    assert result["threat_level"] != "suspected_attack"
+
+

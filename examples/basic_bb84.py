@@ -1,20 +1,32 @@
 from qkd.protocols import bb84_protocol
 
 
-def main():
-    result = bb84_protocol(1000)
-
-    print("=== BB84 Simulation Result ===")
+def print_result(title, result):
+    print(title)
     print(f"Raw bits sent:        {result['raw_bits']}")
     print(f"Matched bases:        {result['matched_bases']}")
     print(f"Final key length:     {result['final_key_length']}")
     print(f"Error rate (QBER):    {result['error_rate']:.4f}")
     print(f"Secure channel:       {result['secure']}")
+    print("")
 
-    if result["secure"]:
-        print("\nResult: Key accepted.")
+
+def main():
+    print("=== ℵ – QUANTUM | qkd-sim | BB84 Demo ===\n")
+
+    # Baseline run (no attack)
+    baseline = bb84_protocol(1000)
+    print_result("---- Baseline (no attack) ----", baseline)
+
+    # Attack run (intercept–resend)
+    attacked = bb84_protocol(1000, attack="intercept_resend")
+    print_result("---- With intercept–resend attack ----", attacked)
+
+    # Quick interpretation
+    if baseline["secure"] and not attacked["secure"]:
+        print("Interpretation: Attack increases QBER and triggers rejection (expected).")
     else:
-        print("\nResult: Key rejected due to high error rate.")
+        print("Interpretation: Check thresholds/implementation if results look unexpected.")
 
 
 if __name__ == "__main__":

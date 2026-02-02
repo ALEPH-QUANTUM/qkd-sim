@@ -9,7 +9,17 @@ DEFAULT_THRESHOLDS = {
 }
 
 
-def bb84_protocol(n=1000, attack=None, noise_rate=0.0, thresholds=None):
+def bb84_protocol(
+    n=1000,
+    attack=None,
+    noise_rate=0.0,
+    thresholds=None,
+    seed=None,
+):
+    # Reproducibility
+    if seed is not None:
+        random.seed(seed)
+
     if thresholds is None:
         thresholds = DEFAULT_THRESHOLDS
 
@@ -51,7 +61,6 @@ def bb84_protocol(n=1000, attack=None, noise_rate=0.0, thresholds=None):
 
     error_rate = errors / matched_bases if matched_bases > 0 else 0.0
 
-    # Security decision
     secure = error_rate <= benign_noise_max
 
     # Threat classification
@@ -73,4 +82,5 @@ def bb84_protocol(n=1000, attack=None, noise_rate=0.0, thresholds=None):
         "secure": secure,
         "threat_level": threat_level,
         "threat_reason": threat_reason,
+        "seed": seed,
     }

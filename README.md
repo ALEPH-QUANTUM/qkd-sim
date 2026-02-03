@@ -151,7 +151,6 @@ python experiments/noise_sweep.py
 
 ## Autonomy-grade API
 
-If you only need decision signals (for higher-level logic), use:
 
 ```python
 from qkd import qkd_decision

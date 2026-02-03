@@ -3,11 +3,11 @@
 
 # qkd-sim
 
-**qkd-sim** is a research-stage simulator for **Quantum Key Distribution (QKD)** protocols.
-It is designed for **protocol behavior analysis** (noise, attacks, post-processing) and for
+**qkd-sim** is a research-stage simulator for Quantum Key Distribution (QKD) protocols.
+It is designed for protocol behavior analysis (noise, attacks, post-processing) and for
 producing **reliability metrics** that can feed higher-level decision logic.
 
-Developed under **ℵ – QUANTUM** (software-first quantum simulation and reliability tooling).
+Developed under **ℵ - QUANTUM** (software-first quantum simulation and reliability tooling).
 
 This project is software-only and does **not** simulate quantum hardware,
 qubits, or physical quantum devices.
@@ -31,7 +31,7 @@ qubits, or physical quantum devices.
 Quantum Key Distribution protocols are conceptually simple but
 operationally fragile.
 
-`qkd-sim` provides a **clean, readable reference implementation** of core QKD
+`qkd-sim` provides a clean, readable reference implementation of core QKD
 concepts suitable for:
 
 - research exploration
@@ -107,7 +107,7 @@ These values are intended for **analysis and decision logic**, not performance c
 ## Relationship to Autonomy & Systems Research
 
 Simulation outputs from `qkd-sim` can be used to generate
-**protocol-level behavior and reliability indicators**.
+protocol-level behavior and reliability indicators.
 
 These outputs may serve as inputs to higher-level decision logic
 (e.g. mission or system autonomy research).

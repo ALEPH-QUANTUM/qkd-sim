@@ -48,7 +48,7 @@ QBER = errors / matched_bases
 - Low QBER -> channel likely uncompromised
 - High QBER -> noise or active eavesdropping
 
-This simulator treats QBER as a **decision signal**, not a physical measurement.
+This simulator treats QBER as a decision signal.
 
 ---
 

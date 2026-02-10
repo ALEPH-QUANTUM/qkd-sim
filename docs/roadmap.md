@@ -1,6 +1,6 @@
 # Project Roadmap (Non-Binding)
 
-This roadmap reflects research intent, not delivery commitments.
+This roadmap reflects research intent.
 
 ---
 

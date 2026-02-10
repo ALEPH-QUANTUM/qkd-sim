@@ -3,8 +3,6 @@
 This document defines the metrics produced by `qkd-sim`
 and the rationale behind their interpretation.
 
-The goal is not physical accuracy, but **clear, explicit,
-and reproducible decision logic**.
 
 ---
 

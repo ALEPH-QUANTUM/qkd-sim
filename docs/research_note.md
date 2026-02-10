@@ -54,7 +54,7 @@ This tool is intended for:
 - exploratory research
 - system-level reasoning
 
-It is **not** intended to claim physical security guarantees.
+It is not intended to claim physical security guarantees.
 
 ---
 

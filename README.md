@@ -100,7 +100,7 @@ The simulator outputs a simple report rather than only returning a key:
 - `error_rate` - observed bit error rate (QBER)
 - `secure` - boolean decision based on a threshold rule
 
-These values are intended for **analysis and decision logic**, not performance claims.
+These values are intended for analysis and decision logic.
 
 ---
 

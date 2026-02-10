@@ -9,7 +9,7 @@ producing reliability metrics that can feed higher-level decision logic.
 
 Developed under **ℵ - QUANTUM** (software-first quantum simulation and reliability tooling).
 
-This project is software-only and does **not** simulate quantum hardware,
+This project is software-only and does not simulate quantum hardware,
 qubits, or physical quantum devices.
 
 

@@ -3,9 +3,9 @@
 
 # qkd-sim
 
-**qkd-sim** is a research-stage simulator for Quantum Key Distribution (QKD) protocols.
+qkd-sim is a research-stage simulator for Quantum Key Distribution (QKD) protocols.
 It is designed for protocol behavior analysis (noise, attacks, post-processing) and for
-producing **reliability metrics** that can feed higher-level decision logic.
+producing reliability metrics that can feed higher-level decision logic.
 
 Developed under **ℵ - QUANTUM** (software-first quantum simulation and reliability tooling).
 
